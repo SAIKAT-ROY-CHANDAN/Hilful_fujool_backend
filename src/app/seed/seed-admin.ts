@@ -1,11 +1,9 @@
 import "dotenv/config";
 import bcrypt from "bcryptjs";
-import { PrismaClient } from "../../generated/prisma/client";
-import { PrismaMariaDb } from "@prisma/adapter-mariadb";
+import { PrismaClient } from '@prisma/client';
 import config from "../config";
 
-const adapter = new PrismaMariaDb(process.env.DATABASE_URL as string);
-const prisma = new PrismaClient({ adapter });
+const prisma = new PrismaClient();
 
 export default prisma;
 

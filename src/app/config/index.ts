@@ -12,6 +12,7 @@ function required(name: string): string {
 }
 
 export default {
+  databaseUrl: required("DATABASE_URL"),
   port: process.env.PORT,
   password: required("DEFAULT_PASS"),
   jwtSecret: required("JWT_SECRET"),

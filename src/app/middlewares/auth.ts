@@ -22,16 +22,12 @@ const auth = (requiredFeatures?: string[]) => {
 
     const { email } = decoded;
 
-    const user = await prisma.adminUser.findFirst({
+    const user = await prisma.role.findFirst({
       where: {
         email,
       },
       include: {
-        role: {
-          include: {
-            roleFeature: true,
-          },
-        },
+        permissions: true,
       },
     });
 
@@ -40,7 +36,7 @@ const auth = (requiredFeatures?: string[]) => {
     }
 
     if (requiredFeatures && requiredFeatures.length > 0) {
-      const userFeatures = user.role.roleFeature.map((feature: any) => feature.name);
+      const userFeatures = user.permissions.map((permission: any) => permission.module);
 
       const hasRequiredFeatures = requiredFeatures.every((feature) =>
         userFeatures.includes(feature),
